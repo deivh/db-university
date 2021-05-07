@@ -2,84 +2,94 @@ Università:
 
 
 - Dipartimento
-    nome_facoltà:
-    ateneo:
-    polo:
-    posizione:
-    segreteria_email:
-    segreteria_cell:
-    biblioteca_facoltà:
-    aule_studio:
-    calendario_eventi:
+    nome_facoltà: VARCHAR(128); NOT NULLABLE
+    ateneo: VARCHAR(128); NOT NULLABLE (esempio: "Università degli studi di Firenze")
+    polo: VARCHAR(32); NOT NULLABLE
+    indirizzo: VARCHAR(128); NOT NULLABLE
+    sedi_secondarie: BOOL; DEFAULT("0")
+    indirizzo_sedi_secondarie: VARCHAR; NULLABLE
+    segreteria_email: VARCHAR(128); NOT NULLABLE
+    segreteria_cell: VARCHAR(32); NOT NULLABLE
+    orari_segreteria: TIMESTAMP; NOT NULLABLE
+    biblioteca_facoltà: VARCHAR; NULLABLE
+    aule_studio: VARCHAR; NULLABLE
+    calendario_eventi: TIMESTAMP; NULLABLE
 
 - Corso di Laurea
-    anno:
-    cfu_required:
-    elenco_esami_totali:
-    elenco_esami_anno:
-    elenco_esami_facoltativi:
-    elenco_appelli_semestre:
+    anno: TINYINT; NOT NULLABLE
+    fuoricorso: BOOL; NOT NULLABLE
+    anno_fuoricorso: TINYINT; NULLABLE
+    cfu_required: TINYINT; NOT NULLABLE
+    elenco_esami_totali: TEXT; NULLABLE
+    elenco_esami_anno: TEXT; NULLABLE
+    elenco_esami_facoltativi: TEXT; NULLABLE
+    elenco_appelli_semestre: TEXT; NULLABLE
 
 - Corso
-    data_inizio:
-    data_fine:
-    orario:
-    aula:
-    capienza_aula:
-    insegnante:
-    firma_presenze:
+    data_inizio: DATE; NULLABLE (if null => corso già finito, o non ancora calendarizzato)
+    data_fine: DATE; NULLABLE
+    orario: VARCHAR(128); NOT NULLABLE (esempio => gio 11:00 - 13:00, ven 9:00 - 11:00)
+    aula: VARCHAR(128); NULLABLE (if null => lezioni online)
+    capienza_aula: TINYINT; NULLABLE;
+    insegnante: VARCHAR(64); NOT NULLABLE
+    firma_presenze: BOOL; NOT NULLABLE
 
 
 - Insegnante
-    nome:
-    cognome:
-    dipartimento:
-    corsi_tenuti:
-    orario_ricevimento:
-    luogo_ricevimento:
-    email:
-    num_telefonico:
-    materiale_didattico:
+    nome: VARCHAR(64) ; NOT NULLABLE
+    cognome: VARCHAR(64) ; NOT NULLABLE
+    cattedra: VARCHAR(64) ; NOT NULLABLE
+    dipartimento: VARCHAR(128) ; NOT NULLABLE
+    corsi_tenuti: TEXT; NULLABLE;
+    orario_ricevimento: TIMESTAMP; NULLABLE (può variare molto, a volte i professori scelgono un giorno del mese e fanno ricevimento solo in quel giorno, altre volte è una ricorrenza settimanale)
+    luogo_ricevimento: VARCHAR(128) ; NULLABLE (if null => ricevimento online)
+    email: VARCHAR(64) ; NOT NULLABLE
+    num_telefonico: VARCHAR(32) ; NOT NULLABLE
+    materiale_didattico: VARCHAR ; NOT NULLABLE (può essere un link ad un portale esterno, o una lista di testi consigliati)
+    bibliografia: TEXT ; NULLABLE
+    pubblicazioni_uni: TEXT ; NULLABLE
+    pubblicazioni_scienza: TEXT ; NULLABLE
 
 
 - Appello
-    nome_esame:
-    tipo_esame:
-    cfu:
-    data:
-    aula:
-    orario:
-    iscrizioni:
-    studenti_iscritti:
-    docente:
-    assistenti:
+    nome_esame: TEXT ; NOT NULLABLE (ho avuto esami dai nomi molto lunghi tipo "Propedeutica iniziale all'approccio linguistico e di traduzione di sistemi e gruppi, ELEMENTI", ma sono sicuro ce ne siano di molto peggiori)
+    tipo_esame: VARCHAR(64) ; NOT NULLABLE (orale / scritto / laboratorio)
+    cfu: TINYINT ; NOT NULLABLE (i cfu vanno solitamente dai 4 ai 12)
+    data: DATE
+    aula: VARCHAR(128); NULLABLE (if null => esame online)
+    orario: TIMESTAMP; NOT NULLABLE
+    durata: SMALLINT; NOT NULLABLE (120 minuti, 3600 secondi)
+    iscrizioni: BOOL; NOT NULLABLE (aperte / chiuse)
+    studenti_iscritti: MEDIUMTEXT; NULLABLE
+    docente: VARCHAR(128); NOT NULLABLE
+    assistenti: VARCHAR; NULLABLE
 
 - Studente
-    nome:
-    cognome:
-    email:
-    facoltà:
-    anno:
-    num_telefonico:
-    num_matricola:
-    status_pagamenti:
-    status_servizi:
-    borsa_di_studio:
-    cfu_totali:
-    media:
-    email_università:
-    elenco_esami:
-    appelli_iscritti:
+    nome:VARCHAR(64) ; NOT NULLABLE
+    cognome:VARCHAR(64) ; NOT NULLABLE
+    email:VARCHAR(128) ; NOT NULLABLE
+    facoltà: VARCHAR ; NOT NULLABLE
+    anno: TINYINT; NOT NULLABLE
+    num_telefonico: VARCHAR(32) ; NOT NULLABLE
+    num_matricola: VARCHAR(16) ; NOT NULLABLE
+    status_pagamenti: BOOL ; NOT NULLABLE (in regola / o tasse scadute)
+    status_servizi: TEXT ; NULLABLE
+    borsa_di_studio: BOOL ; NOT NULLABLE
+    cfu_totali: TINYINT ; DEFAULT("0") 
+    media: TINYINT ; NULLABLE (numero compreso tra 0 e 31)
+    email_università: VARCHAR(64) ; NOT NULLABLE
+    elenco_esami: TEXT; NULLABLE
+    appelli_iscritti: TEXT; NULLABLE
 
 - Esito
-    nome_esame:
-    insegnante:
-    studente:
-    facoltà:
-    voto:
-    cfu:
-    esito:
-    esito_parziale:
-    data_correzione:
-    data_revisione:
-    data_ricevimento:
+    nome_esame: TEXT ; NOT NULLABLE
+    insegnante: VARCHAR(64) ; NOT NULLABLE
+    studente_num_matricola: VARCHAR(16) ; NOT NULLABLE
+    facoltà: VARCHAR(128) ; NOT NULLABLE
+    voto: TINYINT ; NULLABLE (if null => studente assente)
+    cfu: TINYINT ; NOT NULLABLE
+    esito: VARCHAR(16) ; NOT NULLABLE
+    esito_parziale: VARCHAR(16) ; NOT NULLABLE
+    data_correzione: DATE ; NULLABLE
+    data_revisione: DATE ; NULLABLE 
+    data_ricevimento: DATE ; NULLABLE
