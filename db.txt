@@ -1,0 +1,85 @@
+Università:
+
+
+- Dipartimento
+    nome_facoltà:
+    ateneo:
+    polo:
+    posizione:
+    segreteria_email:
+    segreteria_cell:
+    biblioteca_facoltà:
+    aule_studio:
+    calendario_eventi:
+
+- Corso di Laurea
+    anno:
+    cfu_required:
+    elenco_esami_totali:
+    elenco_esami_anno:
+    elenco_esami_facoltativi:
+    elenco_appelli_semestre:
+
+- Corso
+    data_inizio:
+    data_fine:
+    orario:
+    aula:
+    capienza_aula:
+    insegnante:
+    firma_presenze:
+
+
+- Insegnante
+    nome:
+    cognome:
+    dipartimento:
+    corsi_tenuti:
+    orario_ricevimento:
+    luogo_ricevimento:
+    email:
+    num_telefonico:
+    materiale_didattico:
+
+
+- Appello
+    nome_esame:
+    tipo_esame:
+    cfu:
+    data:
+    aula:
+    orario:
+    iscrizioni:
+    studenti_iscritti:
+    docente:
+    assistenti:
+
+- Studente
+    nome:
+    cognome:
+    email:
+    facoltà:
+    anno:
+    num_telefonico:
+    num_matricola:
+    status_pagamenti:
+    status_servizi:
+    borsa_di_studio:
+    cfu_totali:
+    media:
+    email_università:
+    elenco_esami:
+    appelli_iscritti:
+
+- Esito
+    nome_esame:
+    insegnante:
+    studente:
+    facoltà:
+    voto:
+    cfu:
+    esito:
+    esito_parziale:
+    data_correzione:
+    data_revisione:
+    data_ricevimento:
