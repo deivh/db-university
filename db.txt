@@ -55,7 +55,7 @@ Università:
     nome_esame: TEXT ; NOT NULLABLE (ho avuto esami dai nomi molto lunghi tipo "Propedeutica iniziale all'approccio linguistico e di traduzione di sistemi e gruppi, ELEMENTI", ma sono sicuro ce ne siano di molto peggiori)
     tipo_esame: VARCHAR(64) ; NOT NULLABLE (orale / scritto / laboratorio)
     cfu: TINYINT ; NOT NULLABLE (i cfu vanno solitamente dai 4 ai 12)
-    data: DATE
+    data: DATE ; NOT NULLABLE
     aula: VARCHAR(128); NULLABLE (if null => esame online)
     orario: TIMESTAMP; NOT NULLABLE
     durata: SMALLINT; NOT NULLABLE (120 minuti, 3600 secondi)
